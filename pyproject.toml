@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "python-project-jaworowski"
+version = "0.1.0"
+description = "Portfolio task"
+authors = ["Lukasz Jaworowski <jaworowski00@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+Scrapy = "^2.11.0"
+requests = "^2.31.0"
+boto3 = "^1.33.13"
+fastapi = "^0.105.0"
+pydantic = "^2.5.2"
+pydantic-settings = "^2.1.0"
+elasticsearch = "^8.11.1"
+uvicorn = "^0.24.0.post1"
+httpx = "^0.26.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.3"
+isort = "^5.13.1"
+black = "^23.12.0"
+flake8 = "^6.1.0"
+bandit = "^1.7.6"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

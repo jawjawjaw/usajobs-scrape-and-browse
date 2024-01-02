@@ -1,0 +1,37 @@
+version: '3'
+services:
+  elasticsearch:
+    image: elasticsearch:8.8.0
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9200/_cluster/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+  api:
+    image: usajobs-api:latest
+    build:
+      context: .
+      dockerfile: docker/api/Dockerfile
+    ports:
+      - 8000:8000
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    env_file:
+      - .env
+  etl:
+    image: usajobs-etl:latest
+    build:
+      context: .
+      dockerfile: docker/etl/Dockerfile
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    env_file:
+      - .env
